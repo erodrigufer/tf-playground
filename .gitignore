@@ -1,3 +1,9 @@
+# Mac OS X
+.DS_Store
+
+# Zip files (for Lambdas)
+*.zip
+
 # Local .terraform directories
 **/.terraform/*
 
