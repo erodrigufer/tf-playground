@@ -1,18 +1,28 @@
-variable "aws_region" {
-   type = string
-   description = "AWS Deployment region"
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
 
-}
-
-variable "lambda_instance_name" {
-   type = string
-   description = "Name of deployed lambda instance"
-
+  required_version = "1.6.2"
 }
 
 # Configure the AWS Provider
 provider "aws" {
   region = var.aws_region
+
+  default_tags {
+    tags = {
+      Project     = "test-ero"
+      CreatedBy   = "terraform"
+      # Environment = var.environment
+      Workspace   = terraform.workspace
+      # Version     = var.version_tag
+      # Protected   = var.environment == "prod" ? true : false
+    }
+  }
 }
 
 data "aws_iam_policy_document" "assume_role" {
